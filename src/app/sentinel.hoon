@@ -12,7 +12,7 @@
 ::    x  /rejected        (set url)
 ::    x  /url/[url]       (unit fate)
 ::
-/-  sentinel, hark=hark-store
+/-  sentinel, beacon, hark=hark-store
 /+  default-agent, dbug, verb, rudder
 /~  pages  (page:rudder urls:sentinel action:sentinel)  /app/sentinel
 |%
@@ -37,7 +37,7 @@
   ^-  (quip card _this)
   ~&  >  "%sentinel initialized successfully."
   :_  this
-  :~  [%pass /bind %arvo %e %connect [~ /'sentinel'] %sentinel]
+  :~  [%pass /eyre %arvo %e %connect [~ /'sentinel'] %sentinel]
   ==
 ::
 ++  on-save
@@ -56,34 +56,6 @@
   |=  [=mark =vase]
   ^-  (quip card _this)
   ?+    mark  (on-poke:default mark vase)
-  ::
-    ::  %noun:  boilerplate pokes, some with fencing
-    ::
-      %noun
-    =/  action  !<(?([%what url:sentinel] [%okay url:sentinel] [%yeet url:sentinel] [%sour url:sentinel @dr]) vase)
-    ?-    -.action
-      ::
-      ::  An incoming authentication request has been registered.
-        %what
-      ?:  (~(has by requests) +.action)
-        `this
-      `this(requests (~(put by requests) +.action %clotho))
-      ::
-      ::  A URL has been approved.  (local only)
-        %okay
-      ?>  =(our.bowl src.bowl)
-      `this(requests (~(put by requests) +.action %lachesis))
-      ::
-      ::  A URL has been disapproved.  (local only)
-        %yeet
-      ?>  =(our.bowl src.bowl)
-      `this(requests (~(put by requests) +.action %atropos))
-      ::
-      ::  A URL has timed out.  (local only)
-        %sour
-      ?>  =(our.bowl src.bowl)
-      `this(requests (~(put by requests) +<.action %clotho))
-    ==
     ::
       %sentinel-action
     =/  action  !<(?([%what url:sentinel] [%okay url:sentinel] [%yeet url:sentinel] [%sour url:sentinel @dr]) vase)
@@ -98,20 +70,21 @@
       ::  A URL has been approved.  (local only)
         %okay
       ?>  =(our.bowl src.bowl)
+      ::~&  >  "sentinel-subscribers:  {<sup.bowl>}"
       :_  this(requests (~(put by requests) +.action %lachesis))
-          [%give %fact ~[/status/(scot %t `url:sentinel`+.action)] %sentinel-action !>(`action:sentinel`[%okay `url:sentinel`+.action])]~
+          [%give %fact ~[/beacon] %beacon-appeal !>(`appeal:beacon`[%auth our.bowl])]~
       ::
       ::  A URL has been disapproved.  (local only)
         %yeet
       ?>  =(our.bowl src.bowl)
       :_  this(requests (~(put by requests) +.action %atropos))
-          [%give %fact ~[/status/(scot %t `url:sentinel`+.action)] %sentinel-action !>(`action:sentinel`[%yeet `url:sentinel`+.action])]~
+          [%give %fact ~[/beacon] %beacon-appeal !>(`appeal:beacon`[%burn our.bowl])]~
       ::
       ::  A URL has timed out.  (local only)
         %sour
       ?>  =(our.bowl src.bowl)
       :_  this(requests (~(put by requests) +<.action %clotho))
-          [%give %fact ~[/status/(scot %t `url:sentinel`+<.action)] %sentinel-action !>(`action:sentinel`[%yeet `url:sentinel`+<.action])]~
+          [%give %fact ~[/beacon] %beacon-appeal !>(`appeal:beacon`[%burn our.bowl])]~
     ==
   ::
     ::  %handle-http-request:  incoming from eyre
@@ -141,11 +114,11 @@
     `this
     ::
       [%status =url:sentinel *]
-    :_  this
+    :_  this(requests (~(put by requests) `url:sentinel`+<:path %clotho))
     =/  result  (~(gut by requests) `url:sentinel`+<:path '')
     ?:  ?=(%lachesis result)
-      [%give %fact ~ %sentinel-action !>(`action:sentinel`[%okay result])]~
-    [%give %fact ~ %sentinel-action !>(`action:sentinel`[%yeet result])]~
+      [%give %fact ~ %beacon-appeal !>(`appeal:beacon`[%auth our.bowl])]~
+    [%give %fact ~ %beacon-appeal !>(`appeal:beacon`[%burn our.bowl])]~
   ==
 ++  on-leave  on-leave:default
 ++  on-peek
@@ -198,6 +171,16 @@
     ==
   ==
 ::
-++  on-arvo   on-arvo:default
+++  on-arvo
+|=  [=wire =sign-arvo]
+  ^-  (quip card _this)
+  ?.  ?=([%bind-beacon ~] wire)
+    (on-arvo:default [wire sign-arvo])
+  ?>  ?=([%eyre %bound *] sign-arvo)
+  ?:  accepted.sign-arvo
+    %-  (slog leaf+"/sentinel bound successfully!" ~)
+    `this
+  %-  (slog leaf+"Binding /sentinel failed!" ~)
+  `this
 ++  on-fail   on-fail:default
 --

@@ -171,7 +171,7 @@
             ;+  (spin-the-thread url)
           ==
       ::  Site
-      ;td:"{<(trip url)>}"
+      ;td:"{<(trip `@t`url)>}"
     ==
   ::
   ::  Lachesis measures the span of life; here she tracks approved URLs.
