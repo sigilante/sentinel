@@ -1,0 +1,18 @@
+;>
+- Developer: ~lagrev-nocfep
+- License: MIT
+- App link: [~lagrev-nocfep/sentinel](web+urbitgraph://~lagrev-nocfep/sentinel)
+- Source repo: [https://github.com/sigilante/sentinel](https://github.com/sigilante/sentinel)
+- Bug reports: [https://github.com/sigilante/sentinel/issues](https://github.com/sigilante/sentinel/issues)
+
+The Sentinel app pairs with Beacon to allow websites to authenticate Urbit
+users.
+
+You should wait for a request from a website, then visit the Sentinel page to
+approve the request if you want to authenticate or log in to that website.
+
+Websites are responsible to maintain the session, time it out, and so forth.
+
+If you are a website owner who wishes to work with Sentinel, then you should
+acquire the Beacon app which emits requests to Sentinel and exposes a web API
+for website servers to use.
