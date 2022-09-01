@@ -237,7 +237,7 @@
     ^-  manx
     ;form(method "post")
       ;button(type "submit", name "what", value "okay"):"✓"
-      ;input(type "hidden", name "who", value (trip url));
+      ;input(type "hidden", name "who", value (scow %tas url));
     ==
   ::  Reject the request.
   ++  cut-with-shears
@@ -245,7 +245,7 @@
     ^-  manx
     ;form(method "post")
       ;button(type "submit", name "what", value "yeet", class "bg-white"):"Revoke"
-      ;input(type "hidden", name "who", value (trip url));
+      ;input(type "hidden", name "who", value (scow %tas url));
     ==
   ::
   ++  peers
@@ -257,7 +257,7 @@
     =/  ack=(unit ^fate)  (~(get by requests) url)
     ;div(class "flex align-center justify-between")
       ::  Site
-      ;div(class "code", style "border: 1px solid #ccc; padding: 12px; border-radius: 6px;font-size: 12px;font-weight: 600;"):"{(trip `@t`url)}"
+      ;div(class "code", style "border: 1px solid #ccc; padding: 12px; border-radius: 6px;font-size: 12px;font-weight: 600;"):"{(trip url)}"
       ::  Symbol
       ;div(class "flex justify-between align-center")
         ;div(class "none md:block")

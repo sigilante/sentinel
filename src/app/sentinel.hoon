@@ -7,7 +7,7 @@
 ::
 ::    y  /                (map url fate)
 ::
-::    x  /undecide        (set url)
+::    x  /undecided       (set url)
 ::    x  /approved        (set url)
 ::    x  /rejected        (set url)
 ::    x  /url/[url]       (unit fate)
@@ -58,7 +58,7 @@
   ?+    mark  (on-poke:default mark vase)
     ::
       %sentinel-action
-    =/  action  !<(?([%what url:sentinel] [%okay url:sentinel] [%yeet url:sentinel] [%sour url:sentinel @dr]) vase)
+    =/  action  !<(?([%what url:sentinel] [%okay url:sentinel] [%yeet url:sentinel]) vase)
     ?-    -.action
       ::
       ::  An incoming authentication request has been registered.
@@ -70,21 +70,15 @@
       ::  A URL has been approved.  (local only)
         %okay
       ?>  =(our.bowl src.bowl)
-      ::~&  >  "sentinel-subscribers:  {<sup.bowl>}"
+      ~&  >  "sentinel-subscribers:  {<sup.bowl>}"
       :_  this(requests (~(put by requests) +.action %lachesis))
-          [%give %fact ~[/beacon] %beacon-appeal !>(`appeal:beacon`[%auth our.bowl])]~
+          [%give %fact ~[/status/(scot %t +.action)] %beacon-appeal !>(`appeal:beacon`[%auth our.bowl])]~
       ::
       ::  A URL has been disapproved.  (local only)
         %yeet
       ?>  =(our.bowl src.bowl)
       :_  this(requests (~(put by requests) +.action %atropos))
-          [%give %fact ~[/beacon] %beacon-appeal !>(`appeal:beacon`[%burn our.bowl])]~
-      ::
-      ::  A URL has timed out.  (local only)
-        %sour
-      ?>  =(our.bowl src.bowl)
-      :_  this(requests (~(put by requests) +<.action %clotho))
-          [%give %fact ~[/beacon] %beacon-appeal !>(`appeal:beacon`[%burn our.bowl])]~
+          [%give %fact ~[/status/(scot %t +.action)] %beacon-appeal !>(`appeal:beacon`[%burn our.bowl])]~
     ==
   ::
     ::  %handle-http-request:  incoming from eyre
@@ -109,6 +103,7 @@
   |=  =path
   ^-  (quip card _this)
   ~&  >  "%sentinel:  subscription from {<src.bowl>}."
+  ~&  >>  path
   ?+  path  (on-watch:default path)
       [%http-response *]
     `this
@@ -117,8 +112,8 @@
     :_  this(requests (~(put by requests) `url:sentinel`+<:path %clotho))
     =/  result  (~(gut by requests) `url:sentinel`+<:path '')
     ?:  ?=(%lachesis result)
-      [%give %fact ~ %beacon-appeal !>(`appeal:beacon`[%auth our.bowl])]~
-    [%give %fact ~ %beacon-appeal !>(`appeal:beacon`[%burn our.bowl])]~
+      [%give %fact ~[/status] %beacon-appeal !>(`appeal:beacon`[%auth our.bowl])]~
+    [%give %fact ~[/status] %beacon-appeal !>(`appeal:beacon`[%burn our.bowl])]~
   ==
 ++  on-leave  on-leave:default
 ++  on-peek
@@ -174,9 +169,8 @@
 ++  on-arvo
 |=  [=wire =sign-arvo]
   ^-  (quip card _this)
-  ?.  ?=([%bind-beacon ~] wire)
+  ?.  ?=([%eyre %bound *] sign-arvo)
     (on-arvo:default [wire sign-arvo])
-  ?>  ?=([%eyre %bound *] sign-arvo)
   ?:  accepted.sign-arvo
     %-  (slog leaf+"/sentinel bound successfully!" ~)
     `this
