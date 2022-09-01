@@ -58,7 +58,7 @@
   ?+    mark  (on-poke:default mark vase)
     ::
       %sentinel-action
-    =/  action  !<(?([%what url:sentinel] [%okay url:sentinel] [%yeet url:sentinel]) vase)
+    =/  action  !<(action:sentinel vase)
     ~&  >>  "%sentinel-poke:  {<action>}"
     ~&  >>  "%sentinel-poke:  {<(scot %t +.action)>}"
     ?-    -.action
