@@ -59,6 +59,8 @@
     ::
       %sentinel-action
     =/  action  !<(?([%what url:sentinel] [%okay url:sentinel] [%yeet url:sentinel]) vase)
+    ~&  >>  "%sentinel-poke:  {<action>}"
+    ~&  >>  "%sentinel-poke:  {<(scot %ud (jam +.action))>}"
     ?-    -.action
       ::
       ::  An incoming authentication request has been registered.
@@ -70,15 +72,14 @@
       ::  A URL has been approved.  (local only)
         %okay
       ?>  =(our.bowl src.bowl)
-      ~&  >  "sentinel-subscribers:  {<sup.bowl>}"
       :_  this(requests (~(put by requests) +.action %lachesis))
-          [%give %fact ~[/status/(scot %t +.action)] %beacon-appeal !>(`appeal:beacon`[%auth our.bowl])]~
+          [%give %fact ~[/status/(scot %ud (jam +.action))] %beacon-appeal !>(`appeal:beacon`[%auth our.bowl])]~
       ::
       ::  A URL has been disapproved.  (local only)
         %yeet
       ?>  =(our.bowl src.bowl)
       :_  this(requests (~(put by requests) +.action %atropos))
-          [%give %fact ~[/status/(scot %t +.action)] %beacon-appeal !>(`appeal:beacon`[%burn our.bowl])]~
+          [%give %fact ~[/status/(scot %ud (jam +.action))] %beacon-appeal !>(`appeal:beacon`[%burn our.bowl])]~
     ==
   ::
     ::  %handle-http-request:  incoming from eyre
@@ -108,12 +109,14 @@
       [%http-response *]
     `this
     ::
-      [%status =url:sentinel *]
-    :_  this(requests (~(put by requests) `url:sentinel`+<:path %clotho))
-    =/  result  (~(gut by requests) `url:sentinel`+<:path '')
+      [%status =owl:sentinel *]
+    =/  url  (@t (cue (need (slaw %ud i.t.path))))
+    :_  this(requests (~(put by requests) url %clotho))
+    =/  result  (~(gut by requests) url '')
+    ~&  >  [%give %fact ~[~[~.status i.t.path]] %beacon-appeal !>(`appeal:beacon`[%burn our.bowl])]~
     ?:  ?=(%lachesis result)
-      [%give %fact ~[/status] %beacon-appeal !>(`appeal:beacon`[%auth our.bowl])]~
-    [%give %fact ~[/status] %beacon-appeal !>(`appeal:beacon`[%burn our.bowl])]~
+      [%give %fact ~[~[~.status i.t.path]] %beacon-appeal !>(`appeal:beacon`[%auth our.bowl])]~
+    [%give %fact ~[~[~.status i.t.path]] %beacon-appeal !>(`appeal:beacon`[%burn our.bowl])]~
   ==
 ++  on-leave  on-leave:default
 ++  on-peek
