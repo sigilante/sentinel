@@ -59,8 +59,6 @@
     ::
       %sentinel-action
     =/  action  !<(action:sentinel vase)
-    ~&  >>  "%sentinel-poke:  {<action>}"
-    ~&  >>  "%sentinel-poke:  {<(scot %t +.action)>}"
     ?-    -.action
       ::
       ::  An incoming authentication request has been registered.
@@ -103,8 +101,6 @@
 ++  on-watch
   |=  =path
   ^-  (quip card _this)
-  ~&  >  "%sentinel:  subscription from {<src.bowl>}."
-  ~&  >>  path
   ?+    path  (on-watch:default path)
       [%http-response *]
     ?:  =(our src):bowl
@@ -115,7 +111,6 @@
     =/  url  (slav %t i.t.path)
     :_  this(requests (~(put by requests) url %clotho))
     =/  result  (~(gut by requests) url '')
-    ~&  >  [%give %fact ~[~[~.status i.t.path]] %beacon-appeal !>(`appeal:beacon`[%burn our.bowl])]~
     ?:  ?=(%lachesis result)
       [%give %fact ~[~[~.status i.t.path]] %beacon-appeal !>(`appeal:beacon`[%auth our.bowl])]~
     [%give %fact ~[~[~.status i.t.path]] %beacon-appeal !>(`appeal:beacon`[%burn our.bowl])]~

@@ -244,7 +244,7 @@
     |=  =url
     ^-  manx
     ;form(method "post")
-      ;button(type "submit", name "what", value "yeet", class "bg-white"):"Revoke"
+      ;button(type "submit", name "what", value "yeet"):"Revoke"
       ;input(type "hidden", name "who", value (scow %tas url));
     ==
   ::
