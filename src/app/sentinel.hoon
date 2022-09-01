@@ -105,10 +105,12 @@
   ^-  (quip card _this)
   ~&  >  "%sentinel:  subscription from {<src.bowl>}."
   ~&  >>  path
-  ?+  path  (on-watch:default path)
+  ?+    path  (on-watch:default path)
       [%http-response *]
-    `this
-    ::
+    ?:  =(our src):bowl
+      `this
+    (on-watch:default path)
+  ::
       [%status =owl:sentinel *]
     =/  url  (@t (cue (need (slaw %ud i.t.path))))
     :_  this(requests (~(put by requests) url %clotho))
