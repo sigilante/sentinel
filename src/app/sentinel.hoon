@@ -65,20 +65,20 @@
       ::
       ::  An incoming authentication request has been registered.
         %what
-      ?:  (~(has by requests) +.action)
+      ?:  (~(has by requests) url.action)
         `this
-      `this(requests (~(put by requests) +.action %clotho))
+      `this(requests (~(put by requests) url.action %clotho))
       ::
       ::  A URL has been approved.  (local only)
         %okay
       ?>  =(our.bowl src.bowl)
-      :_  this(requests (~(put by requests) +.action %lachesis))
+      :_  this(requests (~(put by requests) url.action %lachesis))
           [%give %fact ~[/status/(scot %t url.action)] %beacon-appeal !>(`appeal:beacon`[%auth our.bowl])]~
       ::
       ::  A URL has been disapproved.  (local only)
         %yeet
       ?>  =(our.bowl src.bowl)
-      :_  this(requests (~(put by requests) +.action %atropos))
+      :_  this(requests (~(put by requests) url.action %atropos))
           [%give %fact ~[/status/(scot %t url.action)] %beacon-appeal !>(`appeal:beacon`[%burn our.bowl])]~
     ==
   ::
