@@ -73,13 +73,13 @@
         %okay
       ?>  =(our.bowl src.bowl)
       :_  this(requests (~(put by requests) url.action %lachesis))
-          [%give %fact ~[/status/(scot %t url.action)] %beacon-appeal !>(`appeal:beacon`[%auth our.bowl])]~
+      [%give %fact ~[/status/(scot %t url.action)] %beacon-appeal !>(`appeal:beacon`[%auth our.bowl])]~
       ::
       ::  A URL has been disapproved.  (local only)
         %yeet
       ?>  =(our.bowl src.bowl)
       :_  this(requests (~(put by requests) url.action %atropos))
-          [%give %fact ~[/status/(scot %t url.action)] %beacon-appeal !>(`appeal:beacon`[%burn our.bowl])]~
+      [%give %fact ~[/status/(scot %t url.action)] %beacon-appeal !>(`appeal:beacon`[%burn our.bowl])]~
     ==
   ::
     ::  %handle-http-request:  incoming from eyre
