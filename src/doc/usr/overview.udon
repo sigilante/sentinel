@@ -10,5 +10,5 @@ is not linted and therefore `https://urbit.org/` and `https://urbit.org` will
 appear to be different websites.  You should wait for the requester so that you
 approve their intended form.
 
-There is not currently a mechanism to entirely delete websites, only to
+There is not currently a mechanism to entirely delete website requests, only to
 disapprove them.
