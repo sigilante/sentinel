@@ -112,7 +112,7 @@
     (on-watch:default path)
   ::
       [%status =owl:sentinel *]
-    =/  url  (@t (cue (need (slaw %ud i.t.path))))
+    =/  url  (slav %t i.t.path)
     :_  this(requests (~(put by requests) url %clotho))
     =/  result  (~(gut by requests) url '')
     ~&  >  [%give %fact ~[~[~.status i.t.path]] %beacon-appeal !>(`appeal:beacon`[%burn our.bowl])]~
