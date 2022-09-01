@@ -58,28 +58,28 @@
   ?+    mark  (on-poke:default mark vase)
     ::
       %sentinel-action
-    =/  action  !<(?([%what url:sentinel] [%okay url:sentinel] [%yeet url:sentinel]) vase)
+    =/  action  !<(action:sentinel vase)
     ~&  >>  "%sentinel-poke:  {<action>}"
-    ~&  >>  "%sentinel-poke:  {<(scot %ud (jam +.action))>}"
+    ~&  >>  "%sentinel-poke:  {<(scot %t +.action)>}"
     ?-    -.action
       ::
       ::  An incoming authentication request has been registered.
         %what
-      ?:  (~(has by requests) +.action)
+      ?:  (~(has by requests) url.action)
         `this
-      `this(requests (~(put by requests) +.action %clotho))
+      `this(requests (~(put by requests) url.action %clotho))
       ::
       ::  A URL has been approved.  (local only)
         %okay
       ?>  =(our.bowl src.bowl)
-      :_  this(requests (~(put by requests) +.action %lachesis))
-          [%give %fact ~[/status/(scot %ud (jam +.action))] %beacon-appeal !>(`appeal:beacon`[%auth our.bowl])]~
+      :_  this(requests (~(put by requests) url.action %lachesis))
+      [%give %fact ~[/status/(scot %t url.action)] %beacon-appeal !>(`appeal:beacon`[%auth our.bowl])]~
       ::
       ::  A URL has been disapproved.  (local only)
         %yeet
       ?>  =(our.bowl src.bowl)
-      :_  this(requests (~(put by requests) +.action %atropos))
-          [%give %fact ~[/status/(scot %ud (jam +.action))] %beacon-appeal !>(`appeal:beacon`[%burn our.bowl])]~
+      :_  this(requests (~(put by requests) url.action %atropos))
+      [%give %fact ~[/status/(scot %t url.action)] %beacon-appeal !>(`appeal:beacon`[%burn our.bowl])]~
     ==
   ::
     ::  %handle-http-request:  incoming from eyre
@@ -105,12 +105,14 @@
   ^-  (quip card _this)
   ~&  >  "%sentinel:  subscription from {<src.bowl>}."
   ~&  >>  path
-  ?+  path  (on-watch:default path)
+  ?+    path  (on-watch:default path)
       [%http-response *]
-    `this
-    ::
+    ?:  =(our src):bowl
+      `this
+    (on-watch:default path)
+  ::
       [%status =owl:sentinel *]
-    =/  url  (@t (cue (need (slaw %ud i.t.path))))
+    =/  url  (slav %t i.t.path)
     :_  this(requests (~(put by requests) url %clotho))
     =/  result  (~(gut by requests) url '')
     ~&  >  [%give %fact ~[~[~.status i.t.path]] %beacon-appeal !>(`appeal:beacon`[%burn our.bowl])]~
