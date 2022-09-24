@@ -1,8 +1,6 @@
 |%
-+$  owl     @ta
 +$  url     cord
 +$  urls    (map url fate)
-+$  ship    @p
 +$  ships   (map ship fate)
 ::::  REQUEST STATUSES
 ::  Clotho spins the thread of life; here she tracks unapproved requests.

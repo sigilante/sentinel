@@ -107,7 +107,7 @@
       `this
     (on-watch:default path)
   ::
-      [%status =owl:sentinel *]
+      [%status =url:sentinel *]
     =/  url  (slav %t i.t.path)
     :_  this(requests (~(put by requests) url %clotho))
     =/  result  (~(gut by requests) url '')

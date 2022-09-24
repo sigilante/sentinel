@@ -41,7 +41,7 @@
       width: 100%; 
       height: 100%; 
       justify-content: center; 
-      align-items: center; 
+      padding-top: 100px;
       font-family: "Inter", sans-serif;
       margin: 0;
       -webkit-font-smoothing: antialiased;
@@ -133,6 +133,9 @@
     .grow {
       flex-grow: 1;
     }
+    .spacer {
+      margin: 0 12px;
+    }
     p {
       margin-block-start: 0;
       margin-block-end: 0;
@@ -181,12 +184,17 @@
       ;body
         ;main
           ;h2:"Sentinel"
-          ;button(id "auth-button", class "active", onclick "{(trip authorize-button)}"): Authorize
-          ;button(id "instructions-button", class "inactive", onclick "{(trip instructions-button)}"): Instructions
+          ;div(class "flex")
+            ;button(id "auth-button", class "active", onclick "{(trip authorize-button)}"): Authorize
+            ;div(class "spacer");
+            ;button(id "instructions-button", class "inactive", onclick "{(trip instructions-button)}"): Instructions
+          ==
           ;div(id "instructions", class "none")
-            Grant permissions to URLs using the Beacon agent for website
-            authentication.  The website will initiate an authorization or you can
-            pre-approve (but the URL is not checked).
+            This app allows you to grant permissions to URLs for website authentication.
+            
+            To use, allow the website to initiate the authorization flow using Beacon. Then click the "✓" next to the URL of the website.
+            
+            To revoke a URL, click "Revoke" next to the URL of the website. Future requests from that URL need to be approved again.
 
             If you expect to see a website listed below that does not show up, you
             should re-initiate the login or authentication attempt at the website.
@@ -194,7 +202,7 @@
             Some websites that use Beacon and Sentinel:
 
             ;a/"https://vienna.earth"
-              ; Vienna HyperText smart canvas
+              ; Vienna Hypertext
             ==
             ;br;
 
@@ -206,19 +214,6 @@
                   ;p.green:"{(trip t.u.msg)}"
                 ;p.red:"{(trip t.u.msg)}"
             ;div
-              ;form(method "post", class "col")
-                ;div(style "font-weight: bold")
-                  ;h3:"URL"
-                ==
-                ;div(class "flex grow")
-                  ;div(class "flex grow")
-                    ;input(type "text", name "who", placeholder "https://urbit.org", class "flex grow");
-                  ==
-                  ;div
-                    ;button(type "submit", name "what", value "okay", class "bg-green text-white"): Authorize
-                  ==
-                ==
-              ==
               ;h3:"Authorized URLs"
               ::  Clotho spins the thread of life; here she tallies requests.
               ;*  clotho
