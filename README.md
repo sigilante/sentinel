@@ -1,5 +1,7 @@
 #   Website Authentication using Urbit ID
 
+**`%beacon` and `%sentinel` are now completely replaced by the Urbit Authenticator tool.  They are left available for reference purposes but should not be used in production code anymore.**
+
 ##  Design Objective
 
 A website can authenticate a user's ownership of an active Urbit ship using a pair of agents:  one on the website's ship to request authentication, and one on the user's ship to confirm it.
