@@ -1,6 +1,6 @@
 #   Website Authentication using Urbit ID
 
-**`%beacon` and `%sentinel` are now completely replaced by the Urbit Authenticator tool.  They are left available for reference purposes but should not be used in production code anymore.**
+**`%beacon` and `%sentinel` are now completely replaced by the [Urbit Authenticator tool](https://docs.urbit.org/tools/auth-server).  They are left available for reference purposes but should not be used in production code anymore.**
 
 ##  Design Objective
 
